@@ -15,7 +15,7 @@ document.addEventListener("readystatechange", function () {
                 case "loadstage" : {
                     switch (msg.data.loadstage) {
                         case "check": {
-                            console.log("Security check started.");
+                            console.log("Sent signal to start a security check.");
                             msgpw = msg.source;
                             msgpw.postMessage({type: "action", from: "init", action: "check"}, "*")
                             break;

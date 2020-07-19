@@ -123,6 +123,7 @@ var WEnv = function () {
     };
     // Environment detect
     this.env = {};
+    this.env.tags = [];
     if ((!!window.opr && !!opr.addons) || !!window.opera) {
         this.env.main = "opera";
         this.env.sub = "opera";

@@ -12,12 +12,12 @@
     <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" name="viewport" />
 </head>
 <body>
-    <div class="medium-window medium-window-working">
+    <div class="medium-window medium-window-working" id="win-working">
         <div class="medium-window-topleft"><div class="loader-webcirque"></div></div>
         <div class="medium-window-titlebar">
             <table>
                 <tr>
-                    <td class="medium-window-icon"></td>
+                    <!--<td class="medium-window-icon"></td>-->
                     <td class="medium-window-title">Security Check</td>
                 </tr>
             </table>
@@ -26,21 +26,21 @@
             <p>To ensure security, a security check is being conducted right now. If safe, everything will be pretty quick: so please wait for some time, we will do the work for you...</p>
         </div>
     </div>
-    <div class="medium-window medium-window-reject" style="display: none;">
+    <div class="medium-window medium-window-reject" id="win-reject" style="display: none;">
         <div class="medium-window-topleft"><img class="img-t-warning" src="../img/edchdx/warning-transparent.svg"></img></div>
-        <div class="medium-window-titlebar">
+        <table><tr><td class="medium-window-titlebar">
             <table>
                 <tr>
                     <!--<td class="medium-window-icon"><img class="img-warning" src="../img/edchdx/warning.svg"></img></td>-->
                     <td class="medium-window-title">Check Failed</td>
                 </tr>
             </table>
-        </div>
-        <div class="medium-window-content">
-            <p>Your browser did not fit the requirements, thus unable to proceed.</p>
-        </div>
+        </td></tr>
+        <tr><td class="medium-window-content">
+            <p>Your browser did not fit the requirements, thus unable to proceed.<br/>Detailed reason: <br/><div id="text-reason" class="ele-pre"></div></p>
+        </td></td></tr></table>
     </div>
-    <div class="medium-window medium-window-resolve" style="display: none;">
+    <div class="medium-window medium-window-resolve" id="win-resolve" style="display: none;">
         <div class="medium-window-topleft"><img class="img-t-ok" src="../img/edchdx/ok-transparent.svg"></img></div>
         <div class="medium-window-titlebar">
             <table>
