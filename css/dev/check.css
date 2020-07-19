@@ -1,0 +1,50 @@
+div.medium-window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    min-width: 300px;
+    min-height: 300px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    padding: 4px;
+    overflow: hidden;
+}
+div.medium-window * {
+    cursor: default;
+}
+div.medium-window-working {
+    background: rgba(255, 255, 0, 0.2);
+}
+div.medium-window-reject {
+    background: rgba(255, 0, 0, 0.2);
+}
+div.medium-window-resolve {
+    background: rgba(0, 255, 0, 0.2);
+}
+div.medium-window-titlebar > table {
+    width: 100%;
+}
+div.medium-window-topleft {
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    width: 128px;
+    height: 128px;
+}
+
+td.medium-window-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+td.medium-window-icon {
+    width: 32px;
+    height: 32px;
+}
+td.medium-window-icon > * {
+    width: 32px;
+    height: 32px;
+}
