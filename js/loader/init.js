@@ -17,7 +17,7 @@ document.addEventListener("readystatechange", function () {
                         case "check": {
                             console.log("Sent signal to start a security check.");
                             msgpw = msg.source;
-                            msgpw.postMessage({type: "action", from: "init", action: "check"}, "*")
+                            msgpw.postMessage({type: "action", from: "init", action: "check"}, "*");
                             break;
                         };
                     };

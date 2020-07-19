@@ -14,7 +14,42 @@ var switchPane = function (tid) {
 };
 var rejectwr = function (reason) {
     switchPane("win-reject");
-    reasonText.innerText = reason;
+    var rejectWindow = document.querySelector("#win-reject");
+    reasonText.innerText = reason + "\nDetails: " + JSON.stringify(self.wenv);
+    reasonText.style.width = (rejectWindow.clientWidth - 16) + "px";
+    reasonText.style.height = (rejectWindow.clientHeight - 152) + "px";
+};
+var checkIt = function () {
+    if (window.wenv) {
+        switch (true) {
+            case !(wenv.tags) : {
+                rejectwr("Cannot conduct security tests.");
+                break;
+            };
+            case wenv.tags.withAny("mod_cn", "mod_ru") : {
+                rejectwr("Blocklisted browser.");
+                break;
+            };
+            case wenv.tags.withAny("security-defect") : {
+                rejectwr("Browser with unsafe behaviour.");
+                break;
+            };
+            case wenv.tags.withAny("forged-core", "forged-ver") : {
+                rejectwr("Tried to forge another browser.");
+                break;
+            };
+            default : {
+                switchPane("win-resolve");
+                top.postMessage({"type": "loadstage", "from": "check", "loadstage": "ok"}, "*")
+                new Promise (function (p) {
+                    // location.href = "main.htm";
+                    p();
+                });
+            };
+        };
+    } else {
+        rejectwr("Cannot load websf@webcirque.wenv");
+    };
 };
 
 document.addEventListener("readystatechange", function () {
@@ -32,31 +67,7 @@ document.addEventListener("readystatechange", function () {
                             Array.from(document.querySelectorAll(".loader-webcirque")).forEach((e, i) => {
                                 e.style.animation = "loadin 1s linear infinite"
                             });
-                            if (window.wenv) {
-                                if (wenv.env) {
-                                    if (wenv.env.trustver) {
-                                        if (!(wenv.env.danger) || wenv.env.tags.indexOf("mod_cn") != -1) {
-                                            if (wenv.env.trust) {
-                                                if (wenv.env.ver) {
-                                                    switchPane("win-resolve");
-                                                } else {
-                                                    rejectwr("Cannot know current version of your browser.");
-                                                };
-                                            } else {
-                                                rejectwr("Faking another browser.")
-                                            };
-                                        } else {
-                                            rejectwr("Blocklisted browser.");
-                                        };
-                                    } else {
-                                        rejectwr("Fake browser version detected.");
-                                    };
-                                } else {
-                                    rejectwr("Cannot distinguish current environment: Empty wenv.env");
-                                };
-                            } else {
-                                rejectwr("Cannot load [websf@webcirque.main.wenv]");
-                            };
+                            setTimeout(checkIt, 1250);
                             break;
                         };
                     };

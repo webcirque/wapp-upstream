@@ -78,5 +78,6 @@ div.loader-webcirque {
     word-wrap: break-word;
     word-break: break-all;
     overflow: hidden;
+	overflow-y: auto;
     width: 100%;
 }
