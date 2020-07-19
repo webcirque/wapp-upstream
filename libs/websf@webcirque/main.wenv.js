@@ -55,8 +55,10 @@ var WEnv = function () {
     };
     // Intl API?
     if (self.Intl) {
-        if (Intl.Collator.constructor == Function) {
-            this._features.push("intlApi");
+        if (Intl.Collator) {
+            if (Intl.Collator.constructor == Function) {
+                this._features.push("intlApi");
+            };
         };
     };
     // A2B and B2A?
@@ -96,8 +98,10 @@ var WEnv = function () {
         this._features.push("async");
     } catch (err) {console.log(err.stack)};
     // If ImageCapture API is present (Chrome 59)
-    if (ImageCapture.constructor == Function) {
-        this._features.push("imageCapture");
+    if (self.ImageCapture) {
+        if (ImageCapture.constructor == Function) {
+            this._features.push("imageCapture");
+        };
     };
     // Object rest? (Chrome 60)
     try {
@@ -115,8 +119,10 @@ var WEnv = function () {
     };
     // CSS.supports exists? (Chrome 61, Firefox 55)
     if (this._features.withAll("cssApi")) {
-        if (CSS.supports.constructor == Function) {
-            this._features.push("cssSupports");
+        if (CSS.supports) {
+            if (CSS.supports.constructor == Function) {
+                this._features.push("cssSupports");
+            };
         };
     };
     // If Network Information is detailed (Chrome 62)
@@ -133,8 +139,10 @@ var WEnv = function () {
     };
     // Intl.PluralRules? (Chrome 63, Firefox 58)
     if (this._features.withAll("intlApi")) {
-        if (Intl.PluralRules.constructor == Function) {
-            this._features.push("intlPluralRules");
+        if (Intl.PluralRules) {
+            if (Intl.PluralRules.constructor == Function) {
+                this._features.push("intlPluralRules");
+            };
         };
     };
     // ResizeObserver? (Chrome 64, Firefox 69)
@@ -152,8 +160,16 @@ var WEnv = function () {
     // Navigator Clipboard? (Chrome 66, Firefox 63)
     if (this._features.withAll("navigator")) {
         if (navigator.clipboard) {
-            if (navigator.clipboard.readText.constructor == Function) {
-                this._features.push("navClipboard");
+            this._features.push("navClipboard");
+            if (navigator.clipboard.readText) {
+                if (navigator.clipboard.readText.constructor == Function) {
+                    this._features.push("navClipboardRead");
+                };
+            };
+            if (navigator.clipboard.writeText) {
+                if (navigator.clipboard.writeText.constructor == Function) {
+                    this._features.push("navClipboardWrite");
+                };
             };
         };
     };
@@ -261,8 +277,10 @@ var WEnv = function () {
     } catch (err) {};
     // DisplayNames? (Chrome 81, Firefox not yet)
     if (this._features.withAll("intlApi")) {
-        if (Intl.DisplayNames.constructor == Function) {
-            this._features.push("intlDispNames");
+        if (Intl.DisplayNames) {
+            if (Intl.DisplayNames.constructor == Function) {
+                this._features.push("intlDispNames");
+            };
         };
     };
     // There are no Chrome 82!
@@ -322,7 +340,7 @@ var WEnv = function () {
         this.ecmaLevel = 0;
         if (this._features.withAll("let", "arrowFunction", "objectAccess")) {
             this.ecmaLevel = 1;
-            if (this._features.withAll("restObject", "asyncFunction")) {
+            if (this._features.withAll("restObject", "async")) {
                 this.ecmaLevel = 2;
             };
         };
@@ -443,7 +461,7 @@ var WEnv = function () {
             };
         };
         // Browser specific tests
-        {
+        if (this.core == "chrome") {
             //{ If Chromium, check for real versions and versions provided by userAgent
             var aver = [], dver = [], minver = 0, maxver = 90;
             // Available version check
@@ -637,11 +655,13 @@ var WEnv = function () {
     // Common browser designing faults
     {
         var danger = false;
-        if (mimeTypes.indexOf("application/npqqwebgame") > -1) {
-            this.modded = true;
-            this.tags.push("unnecessary-plugin");
-        };
         if (self.navigator) {
+            if (navigator.mimeTypes) {
+                if (Array.from(navigator.mimeTypes).indexOf("application/npqqwebgame") > -1) {
+                    this.modded = true;
+                    this.tags.push("unnecessary-plugin");
+                };
+            };
             if (navigator.plugins) {
                 if (navigator.plugins.length > 8) {
                     this.modded = true;
