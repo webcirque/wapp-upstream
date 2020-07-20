@@ -492,14 +492,16 @@ var WEnv = function () {
             (this._features.withAll("intlDispNames")) ? (aver.push(81)) : (dver.push(81));
             // No 82 available
             (this._features.withAll("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
-            console.log(aver.toString());
-            console.log(dver.toString());
             // Debugging start
-            //aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
-            //dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
+            aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+            dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
             //aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 80, 81];
             //dver = [69, 79, 83];
+            //aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70];
+            //dver = [69, 71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
             // Debugging end
+            console.log(aver.toString());
+            console.log(dver.toString());
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
                 if ((aver[pt] - aver[pt-1]) < 3) {
@@ -512,11 +514,20 @@ var WEnv = function () {
             if (dver.length > 1) {
                 for (var pt1 = 0; pt1 < dver.length; pt1 ++) {
                     maxver = dver[dver.length - pt1 - 1];
-                    if (pt1 < dver.length - 2) {
-                        if ((dver[dver.length - pt1 - 1] - dver[dver.length - pt1 - 2]) > 2) {
-                            this.modded = true;
-                            runVer = true;
-                            break;
+                    if (pt1 < dver.length - 1) {
+                        var delta = (dver[dver.length - pt1 - 1] - dver[dver.length - pt1 - 2]);
+                        if (delta > 1) {
+                            if (delta == 2) {
+                                if (dver[dver.length - pt1 - 1] != 83 && dver[dver.length - pt1 - 1] != 76) {
+                                    this.modded = true;
+                                    runVer = true;
+                                    break;
+                                };
+                            } else {
+                                this.modded = true;
+                                runVer = true;
+                                break;
+                            };
                         };
                     };
                 };
