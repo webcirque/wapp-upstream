@@ -504,17 +504,14 @@ var WEnv = function () {
                 };
             };
             var runVer = false;
-            for (var pt1 = 0; pt1 < dver.length; pt1 ++) {
-                for (var pt2 = 0; pt2 < aver.length; pt2 ++) {
-                    if ((dver[dver.length - 1 - pt1] - dver[dver.length - 1 - pt1]) > 2) {
-                        maxver = dver[dver.length - 1 - pt1];
+            if (dver.length > 1) {
+                for (var pt1 = 1; pt1 < dver.length; pt1 ++) {
+                    if ((dver[dver.length - pt1] - dver[dver.length - pt1 - 1]) > 2) {
+                        maxver = dver[pt1];
                         this.modded = true;
                         runVer = true;
                         break;
                     };
-                };
-                if (runVer) {
-                    break;
                 };
             };
             console.log("Detected possible version: " + minver + "~" + maxver);
