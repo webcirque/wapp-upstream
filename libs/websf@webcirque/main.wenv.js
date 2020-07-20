@@ -17,6 +17,7 @@ var WEnv = function () {
     this.moddedName = null;
     this.moddedFrom = null;
     this.version = [];
+    this.version.ua = [];
     this.type = null;
     this.ostext = null;
     this.ostype = null;
@@ -523,6 +524,7 @@ var WEnv = function () {
                     } else {
                         this.version = uadecver;
                     };
+                    this.version.ua = uadecver;
                 };
             };
         };

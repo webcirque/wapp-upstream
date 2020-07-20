@@ -19,6 +19,14 @@ var rejectwr = function (reason) {
     reasonText.style.width = (rejectWindow.clientWidth - 16) + "px";
     reasonText.style.height = (rejectWindow.clientHeight - 152) + "px";
 };
+var warnwr = function (reason) {
+    switchPane("win-decide");
+    var warnWindow = document.querySelector("#win-decide");
+    var wreasonText = document.querySelector("#text-wreason");
+    wreasonText.innerText = reason + "\nDetails: " + JSON.stringify(self.wenv);
+    wreasonText.style.width = (warnWindow.clientWidth - 16) + "px";
+    wreasonText.style.height = (warnWindow.clientHeight - 152) + "px";
+};
 var checkIt = function () {
     if (window.wenv) {
         switch (true) {
@@ -34,8 +42,12 @@ var checkIt = function () {
                 rejectwr("Browser with unsafe behaviour.");
                 break;
             };
-            case wenv.tags.withAny("forged-core", "forged-ver") : {
+            case wenv.tags.withAny("forged-core") : {
                 rejectwr("Tried to forge another browser.");
+                break;
+            };
+            case wenv.tags.withAny("forged-ver") : {
+                warnwr("Tried to forge another version.\nReal version: " + wenv.version.toString() + "\nForged version: " + wenv.version.ua.toString());
                 break;
             };
             default : {
