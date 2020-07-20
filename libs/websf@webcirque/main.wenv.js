@@ -690,7 +690,7 @@ var WEnv = function () {
     };
 };
 } catch (err) {
-    self.wenvError = err.stack;
+    alert(err.stack)
 };
 
 var wenv = new WEnv();

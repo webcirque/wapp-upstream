@@ -15,7 +15,7 @@ var switchPane = function (tid) {
 var rejectwr = function (reason) {
     switchPane("win-reject");
     var rejectWindow = document.querySelector("#win-reject");
-    reasonText.innerText = reason + "\nDetails: " + (JSON.stringify(self.wenv) || self.wenvError);
+    reasonText.innerText = reason + "\nDetails: " + JSON.stringify(self.wenv);
     reasonText.style.width = (rejectWindow.clientWidth - 16) + "px";
     reasonText.style.height = (rejectWindow.clientHeight - 152) + "px";
 };
