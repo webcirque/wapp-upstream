@@ -554,43 +554,43 @@ var WEnv = function () {
 			// Chinese browsers
 			{
 				var tmpulist = ["qh", "qihoo", "360ee", "360se", "uc", "ubrowser", "qq", "baidu", "bidu", "maxthon", "metasr", "sogou", "lbbr", "2345e", "2345b", "115b", "world", "miuib", "quark", "qiyu", "micromess", "aliapp", "weibo", "douban", "snebuy", "iqiyi", "dingtalk", "huawei"], bMatched = false, bName = "";
-				tmpulist.forEach(function () {
+				tmpulist.forEach(function (e) {
 					if (navigator.userAgent.toLowerCase().withAlld(e)) {
 						bMatched = true;
 						bName = e;
 					};
 				});
-				switch (bName) {
-					case "qh":
-					case "qihoo":
-					case "360se":
-					case "360ee": {
-						bName = "360";
-						break;
-					};
-					case "ubrowser": {
-						bName = "uc";
-						break;
-					};
-					case "bidu": {
-						bName = "baidu";
-						break;
-					};
-					case "2345e":
-					case "2345b": {
-						bName = "2345"
-						break;
-					};
-					case "miuib": {
-						bName = "miuisys";
-						break;
-					};
-					case "micromess": {
-						bName = "wechat";
-						break;
-					};
-				};
 				if (bMatched) {
+					switch (bName) {
+						case "qh":
+						case "qihoo":
+						case "360se":
+						case "360ee": {
+							bName = "360";
+							break;
+						};
+						case "ubrowser": {
+							bName = "uc";
+							break;
+						};
+						case "bidu": {
+							bName = "baidu";
+							break;
+						};
+						case "2345e":
+						case "2345b": {
+							bName = "2345"
+							break;
+						};
+						case "miuib": {
+							bName = "miuisys";
+							break;
+						};
+						case "micromess": {
+							bName = "wechat";
+							break;
+						};
+					};
 					this.modded = true;
 					this.moddedName = bName;
 					this.moddedFrom = "cn";
