@@ -504,7 +504,7 @@ var WEnv = function () {
             console.log(dver.toString());
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
-                if ((aver[pt] - aver[pt-1]) < 5) {
+                if ((aver[pt] - aver[pt-1]) < 3) {
                     minver = aver[pt];
                 } else {
                     break;
