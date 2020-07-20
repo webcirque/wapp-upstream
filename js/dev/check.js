@@ -47,7 +47,7 @@ var checkIt = function () {
                 break;
             };
             case wenv.tags.withAny("forged-ver") : {
-                warnwr("Tried to forge another version.\nReal version: " + wenv.version.toString() + "\nForged version: " + wenv.version.ua.toString());
+                warnwr("Tried to forge another version.\nReal version: " + wenv.version.toString() + "\nForged version: " + wenv.uaversion.toString());
                 break;
             };
             default : {
