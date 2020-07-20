@@ -7,6 +7,8 @@ Thanks to @mumuy on GitHub for mumuy/browser, and @RobW on StackOverflow for his
 */
 
 // Collects information to help decide the type and version of the environment
+// This line is for debugging. Do not use in production.
+try {
 var WEnv = function () {
     // Local variables
     var docEntries = [];
@@ -686,6 +688,9 @@ var WEnv = function () {
     if (this.modded) {
         this.tags.push("mod_" + this.moddedFrom);
     };
+};
+} catch (err) {
+    self.wenvError = err.stack;
 };
 
 var wenv = new WEnv();
