@@ -8,7 +8,6 @@ Thanks to @mumuy on GitHub for mumuy/browser, and @RobW on StackOverflow for his
 
 // Collects information to help decide the type and version of the environment
 // This line is for debugging. Do not use in production.
-try {
 var WEnv = function () {
     // Local variables
     var docEntries = [];
@@ -519,13 +518,18 @@ var WEnv = function () {
                     break;
                 };
             };
-            //console.log([minver, maxver]);
-            if (uadecver[0] < minver || uadecver[0] > maxver) {
-                console.log("Forged Chromium version detected!");
-                this.version = [minver];
-                this.tags.push("forged-ver");
-            } else {
-                this.version = uadecver;
+            console.log("Detected possible version: " + minver + "~" + maxver);
+            if (uadecver) {
+                if (uadecver.length > 0) {
+                    console.log("User Agent provided version: " + uadecver);
+                    if (uadecver[0] < minver || uadecver[0] > maxver) {
+                        console.log("Forged Chromium version detected!");
+                        this.version = [minver];
+                        this.tags.push("forged-ver");
+                    } else {
+                        this.version = uadecver;
+                    };
+                };
             };
         };
     };
@@ -631,10 +635,12 @@ var WEnv = function () {
             this.modded = true;
         };
         // 2345 fingerprints
-        if (chrome.adblock2345 || chrome.common2345) {
-            this.moddedName = "2345";
-            this.moddedFrom = "cn";
-            this.modded = true;
+        if (self.chrome) {
+            if (chrome.adblock2345 || chrome.common2345) {
+                this.moddedName = "2345";
+                this.moddedFrom = "cn";
+                this.modded = true;
+            };
         };
     } else if (this.core == "ie" || this.core == "edge") {
         // 360 Non-chromium fingerprints
@@ -688,9 +694,6 @@ var WEnv = function () {
     if (this.modded) {
         this.tags.push("mod_" + this.moddedFrom);
     };
-};
-} catch (err) {
-    alert(err.stack)
 };
 
 var wenv = new WEnv();
