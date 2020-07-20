@@ -28,13 +28,16 @@ div.medium-window * {
     cursor: default;
 }
 div.medium-window-working {
-    background: rgba(255, 255, 0, 0.2);
+    background: rgba(0, 160, 255, 0.2);
 }
 div.medium-window-reject {
     background: rgba(255, 0, 0, 0.2);
 }
 div.medium-window-resolve {
     background: rgba(0, 255, 0, 0.2);
+}
+div.medium-window-decide {
+    background: rgba(255, 255, 0, 0.2);
 }
 div.medium-window table {
     width: 100%;

@@ -303,7 +303,7 @@ var WEnv = function () {
         this.moddedName = "opera";
         this.moddedFrom = "no";
     };
-    if (typeof self.InstallTrigger !== 'undefined') {
+    if (self.InstallTrigger || self.firefox) {
         this.core = "firefox";
         this.moddedName = "firefox";
         this.moddedFrom = "foss";
@@ -652,6 +652,15 @@ var WEnv = function () {
                     break;
                 };
             };
+        };
+        // Push versions without detection
+        if (uadecver.length > 0) {
+            this.version = uadecver;
+        };
+    } else {
+        // Push versions without detection
+        if (uadecver.length > 0) {
+            this.version = uadecver;
         };
     };
     // Common browser designing faults
