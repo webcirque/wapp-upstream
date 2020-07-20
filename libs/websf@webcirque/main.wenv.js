@@ -491,10 +491,8 @@ var WEnv = function () {
             (this._features.withAll("intlDispNames")) ? (aver.push(81)) : (dver.push(81));
             // No 82 available
             (this._features.withAll("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
-            //console.log(this._features);
-            //console.log(aver);
-            //console.log(dver);
-            //debugger;
+            console.log(aver);
+            console.log(dver);
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
                 if ((aver[pt] - aver[pt-1]) < 3) {
@@ -507,7 +505,7 @@ var WEnv = function () {
             if (dver.length > 1) {
                 for (var pt1 = 1; pt1 < dver.length; pt1 ++) {
                     if ((dver[dver.length - pt1] - dver[dver.length - pt1 - 1]) > 2) {
-                        maxver = dver[pt1];
+                        maxver = dver[dver.length - pt1];
                         this.modded = true;
                         runVer = true;
                         break;
