@@ -520,11 +520,11 @@ var WEnv = function () {
                     if (uadecver[0] < minver || uadecver[0] > maxver) {
                         console.log("Forged Chromium version detected!");
                         this.version = [minver];
+                        this.uaversion = uadecver;
                         this.tags.push("forged-ver");
                     } else {
                         this.version = uadecver;
                     };
-                    this.version.ua = uadecver;
                 };
             };
         };
