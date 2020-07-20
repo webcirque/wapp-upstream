@@ -564,10 +564,7 @@ var WEnv = function () {
 				this.moddedName = "brave";
 				this.moddedFrom = "foss";
 			};
-			if (navigator.userAgent.indexOf(' Firefox') != -1) {
-				this.tags.push("forged-core");
-			};
-			if (navigator.userAgent.indexOf(' MSIE ') != -1) {
+			if (navigator.userAgent.indexOf(' Firefox') != -1 || navigator.userAgent.indexOf('MSIE') != -1 || navigator.userAgent.indexOf('Trident') != -1 || navigator.userAgent.indexOf('iPhone; CPU iPhone OS') != -1) || navigator.userAgent.indexOf('Symbian/') != -1 {
 				this.tags.push("forged-core");
 			};
 			// Bulk country query
