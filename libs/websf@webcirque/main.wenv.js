@@ -494,6 +494,10 @@ var WEnv = function () {
             (this._features.withAll("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
             console.log(aver.toString());
             console.log(dver.toString());
+            // Debugging start
+            /* aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+            dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83]; */
+            // Debugging end
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
                 if ((aver[pt] - aver[pt-1]) < 3) {
@@ -510,6 +514,8 @@ var WEnv = function () {
                         this.modded = true;
                         runVer = true;
                         break;
+                    } else {
+                        maxver = dver[dver.length - pt1 - 1]
                     };
                 };
             };
