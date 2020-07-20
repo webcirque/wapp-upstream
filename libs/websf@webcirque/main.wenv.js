@@ -495,8 +495,10 @@ var WEnv = function () {
             console.log(aver.toString());
             console.log(dver.toString());
             // Debugging start
-            /* aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
-            dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83]; */
+            //aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+            //dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
+            //aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 80, 81];
+            //dver = [69, 79, 83];
             // Debugging end
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
@@ -510,7 +512,7 @@ var WEnv = function () {
             if (dver.length > 1) {
                 for (var pt1 = 0; pt1 < dver.length; pt1 ++) {
                     maxver = dver[dver.length - pt1 - 1];
-                    if (pt1 > 0) {
+                    if (pt1 < dver.length - 2) {
                         if ((dver[dver.length - pt1 - 1] - dver[dver.length - pt1 - 2]) > 2) {
                             this.modded = true;
                             runVer = true;
@@ -523,7 +525,7 @@ var WEnv = function () {
             if (uadecver) {
                 if (uadecver.length > 0) {
                     console.log("User Agent provided version: " + uadecver);
-                    if (uadecver[0] < minver || uadecver[0] > maxver) {
+                    if (uadecver[0] < minver || uadecver[0] >= maxver) {
                         console.log("Forged Chromium version detected!");
                         this.version = [minver];
                         this.uaversion = uadecver;
