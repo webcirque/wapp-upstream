@@ -132,7 +132,7 @@ try {
 		this.able = function (args) {
 			var count = 0;
 			Array.from(args).forEach(function (e) {
-				if (e == null || e == undefined) {
+				if (e != null && e != undefined) {
 					count ++;
 				};
 			});
