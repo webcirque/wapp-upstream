@@ -492,8 +492,8 @@ var WEnv = function () {
             (this._features.withAll("intlDispNames")) ? (aver.push(81)) : (dver.push(81));
             // No 82 available
             (this._features.withAll("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
-            console.log(aver);
-            console.log(dver);
+            console.log(aver.toString());
+            console.log(dver.toString());
             //Decode raw to applicable values
             for (var pt = 1; pt < aver.length; pt ++) {
                 if ((aver[pt] - aver[pt-1]) < 3) {
