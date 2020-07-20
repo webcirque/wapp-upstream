@@ -510,12 +510,12 @@ var WEnv = function () {
             if (dver.length > 1) {
                 for (var pt1 = 1; pt1 < dver.length; pt1 ++) {
                     if ((dver[dver.length - pt1] - dver[dver.length - pt1 - 1]) > 2) {
-                        maxver = dver[dver.length - pt1];
+                        maxver = dver[dver.length - pt1 - 1];
                         this.modded = true;
                         runVer = true;
                         break;
                     } else {
-                        maxver = dver[dver.length - pt1 - 1]
+                        maxver = dver[dver.length - pt1];
                     };
                 };
             };
