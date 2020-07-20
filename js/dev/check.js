@@ -34,19 +34,19 @@ var checkIt = function () {
 				rejectwr("Cannot conduct security tests.");
 				break;
 			};
-			case wenv.tags.withAny("mod_cn", "mod_ru") : {
+			case wenv.tags.withAnyd("mod_cn", "mod_ru") : {
 				rejectwr("Blocklisted browser.");
 				break;
 			};
-			case wenv.tags.withAny("security-defect") : {
+			case wenv.tags.withAnyd("security-defect") : {
 				rejectwr("Browser with unsafe behaviour.");
 				break;
 			};
-			case wenv.tags.withAny("forged-core") : {
+			case wenv.tags.withAnyd("forged-core") : {
 				rejectwr("Tried to forge another browser.");
 				break;
 			};
-			case wenv.tags.withAny("forged-ver") : {
+			case wenv.tags.withAnyd("forged-ver") : {
 				warnwr("Tried to forge another version.\nReal version: " + wenv.version.toString() + "\nForged version: " + wenv.uaversion.toString());
 				break;
 			};
