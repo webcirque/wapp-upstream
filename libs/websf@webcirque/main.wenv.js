@@ -7,7 +7,6 @@ Thanks to @mumuy on GitHub for mumuy/browser, and @RobW on StackOverflow for his
 */
 
 // Collects information to help decide the type and version of the environment
-// This line is for debugging. Do not use in production.
 var WEnv = function () {
 	// Local variables
 	var docEntries = [];
@@ -36,10 +35,10 @@ var WEnv = function () {
 		this._features.push("self");
 	} catch (err) {};
 	// Basic polyfills for window and self
-	if (!(this._features.withAny("self"))) {
+	if (!(this._features.withAnyd("self"))) {
 		window.self = window;
 	};
-	if (!(this._features.withAny("window"))) {
+	if (!(this._features.withAnyd("window"))) {
 		self.window = self;
 	};
 	// Navigator?
@@ -120,7 +119,7 @@ var WEnv = function () {
 		};
 	};
 	// CSS.supports exists? (Chrome 61, Firefox 55)
-	if (this._features.withAll("cssApi")) {
+	if (this._features.withAlld("cssApi")) {
 		if (CSS.supports) {
 			if (CSS.supports.constructor == Function) {
 				this._features.push("cssSupports");
@@ -128,19 +127,19 @@ var WEnv = function () {
 		};
 	};
 	// If Network Information is detailed (Chrome 62)
-	if (this._features.withAll("navigator", "netInfo")) {
+	if (this._features.withAlld("navigator", "netInfo")) {
 		if (navigator.connection.effectiveType) {
 			this._features.push("netInfoDetailed");
 		};
 	};
 	// If Font Variation Settings exist (Chrome 62)
-	if (this._features.withAll("cssApi", "cssSupports")) {
+	if (this._features.withAlld("cssApi", "cssSupports")) {
 		if (CSS.supports("font-variation-settings", "'wght' 700")) {
 			this._features.push("fontVarConf");
 		};
 	};
 	// Intl.PluralRules? (Chrome 63, Firefox 58)
-	if (this._features.withAll("intlApi")) {
+	if (this._features.withAlld("intlApi")) {
 		if (Intl.PluralRules) {
 			if (Intl.PluralRules.constructor == Function) {
 				this._features.push("intlPluralRules");
@@ -160,7 +159,7 @@ var WEnv = function () {
 		};
 	};
 	// Navigator Clipboard? (Chrome 66, Firefox 63)
-	if (this._features.withAll("navigator")) {
+	if (this._features.withAlld("navigator")) {
 		if (navigator.clipboard) {
 			this._features.push("navClipboard");
 			if (navigator.clipboard.readText) {
@@ -184,7 +183,7 @@ var WEnv = function () {
 		} catch (err) {};
 	};
 	// PageLife? (Chrome 68)
-	if (docEntries.withAll("onfreeze", "onresume")) {
+	if (docEntries.withAlld("onfreeze", "onresume")) {
 		this._features.push("pageLife");
 	};
 	// OffscreenCanvas? (Chrome 69)
@@ -194,7 +193,7 @@ var WEnv = function () {
 		};
 	};
 	// WebLocks? (Chrome 69)
-	if (self.LockManager && this._features.withAll("navigator")) {
+	if (self.LockManager && this._features.withAlld("navigator")) {
 		if (navigator.locks) {
 			if (navigator.locks.constructor == LockManager) {
 				this._features.push("webLocks");
@@ -206,7 +205,7 @@ var WEnv = function () {
 		this._features.push("noGamepadList");
 	};
 	// Intl.RelativeTimeFormat (Chrome 71, Chrome 65)
-	if (this._features.withAll("intlApi")) {
+	if (this._features.withAlld("intlApi")) {
 		if (Intl.RelativeTimeFormat) {
 			if (Intl.RelativeTimeFormat.constructor == Function) {
 				this._features.push("intlRelaTime");
@@ -242,13 +241,13 @@ var WEnv = function () {
 		};
 	};
 	// onFormData? (Chrome 77, Firefox 72)
-	if (this._features.withAll("objectAccess")) {
-		if (docEntries.withAny("onformdata")) {
+	if (this._features.withAlld("objectAccess")) {
+		if (docEntries.withAnyd("onformdata")) {
 			this._features.push("onFormData");
 		};
 	};
 	// CSS.registerProperty (Chrome 78, Firefox not yet)
-	if (this._features.withAll("cssApi")) {
+	if (this._features.withAlld("cssApi")) {
 		if (CSS.registerProperty) {
 			if (Compare.type(Function, [CSS.registerProperty])) {
 				this._features.push("cssRegProp");
@@ -264,21 +263,21 @@ var WEnv = function () {
 	};
 	var tmpArray = undefined;
 	// display: minimal-ui (Chrome 80)
-	if (this._features.withAll("cssApi", "cssSupports")) {
+	if (this._features.withAlld("cssApi", "cssSupports")) {
 		if (CSS.supports("display", "minimal-ui")) {
 			this._features.push("dispMinUI");
 		};
 	};
 	// Optional Chaining (Chrome 80, Firefox 74)
 	try {
-		if (this._features.withAll("a2b")) {
+		if (this._features.withAlld("a2b")) {
 			if (Compard.able(eval('window?.btoa'))) {
 				this._features.push("optChaining");
 			};
 		};
 	} catch (err) {};
 	// DisplayNames? (Chrome 81, Firefox not yet)
-	if (this._features.withAll("intlApi")) {
+	if (this._features.withAlld("intlApi")) {
 		if (Intl.DisplayNames) {
 			if (Intl.DisplayNames.constructor == Function) {
 				this._features.push("intlDispNames");
@@ -293,7 +292,7 @@ var WEnv = function () {
 		};
 	};
 	// Browser-based detection
-	if (!(this._features.withAny("window")) && !(this._features.withAny("self"))) {
+	if (!(this._features.withAnyd("window")) && !(this._features.withAnyd("self"))) {
 		this.type = "worker";
 	} else {
 		this.type = "page";
@@ -329,7 +328,7 @@ var WEnv = function () {
 	};
 	// Deeper comparison of Safari and Chromium if above failed
 	if (Compard.able(self.webkitMediaStream, self.webkitRequestFileSystem, self.webkitResolveLocalFileSystemURL, self.WebkitMutationObserver) > 0) {
-		if (this._features.withAll("speechGrammar")) {
+		if (this._features.withAlld("speechGrammar")) {
 			this.core = "chrome";
 		} else {
 			this.core = "safari";
@@ -340,9 +339,9 @@ var WEnv = function () {
 	// ECMA levels
 	{
 		this.ecmaLevel = 0;
-		if (this._features.withAll("let", "arrowFunction", "objectAccess")) {
+		if (this._features.withAlld("let", "arrowFunction", "objectAccess")) {
 			this.ecmaLevel = 1;
-			if (this._features.withAll("restObject", "async")) {
+			if (this._features.withAlld("restObject", "async")) {
 				this.ecmaLevel = 2;
 			};
 		};
@@ -407,98 +406,82 @@ var WEnv = function () {
 		};
 		//console.info(pkey);
 		var uadecver = [], bktver = [], tmptver = [];
-		for (var pt1 = 0; pt1 < pkey.length; pt1 ++) {
-			//for (var pt2 = 0; pt2 < pkey[pt1].length; pt2 ++) {};
-			switch (pkey[pt1][0]) {
+		var copied = this;
+		pkey.forEach(function (h) {
+			switch (h[0]) {
 				case "Mozilla": {
-					this.ostext = pkey[pt1][2];
+					copied.ostext = h[2];
 					break;
 				};
 				case "Chrome":
 				case "Chromium": {
-					if (this.core == "chrome") {
-						tmptver = pkey[pt1][1].split(".");
-						for (var pt2 = 0; pt2 < tmptver.length; pt2 ++) {
-							uadecver.push(parseInt(tmptver[pt2]));
-						};
+					if (copied.core == "chrome") {
+						tmptver = h[1].split(".");
+						tmptver.forEach(function (e) {
+							uadecver.push(parseInt(e));
+						});
 					};
 					break;
 				};
 				case "Safari": {
-					if (this.core == "safari") {
-						tmptver = pkey[pt1][1].split(".");
-						for (var pt2 = 0; pt2 < tmptver.length; pt2 ++) {
-							uadecver.push(parseInt(tmptver[pt2]));
-						};
+					if (copied.core == "safari") {
+						tmptver = h[1].split(".");
+						tmptver.forEach(function (e) {
+							uadecver.push(parseInt(e));
+						});
 					};
 					break;
 				};
 				case "Firefox": {
-					if (this.core == "firefox") {
-						tmptver = pkey[pt1][1].split(".");
-						for (var pt2 = 0; pt2 < tmptver.length; pt2 ++) {
-							uadecver.push(parseInt(tmptver[pt2]));
-						};
+					if (copied.core == "firefox") {
+						tmptver = h[1].split(".");
+						tmptver.forEach(function (e) {
+							uadecver.push(parseInt(e));
+						});
 					};
 					break;
 				};
-				/* case "MSIE": {
-					if (this.core == "ie") {
-						tmptver = pkey[pt1][1].split(".");
-						for (var pt2 = 0; pt2 < tmptver.length; pt2 ++) {
-							uadecver.push(parseInt(tmptver[pt2]));
-						};
-					};
-					break;
-				}; */
 				case "Edg": {
-					if (this.core == "edge") {
-						tmptver = pkey[pt1][1].split(".");
-						for (var pt2 = 0; pt2 < tmptver.length; pt2 ++) {
-							uadecver.push(parseInt(tmptver[pt2]));
-						};
+					if (copied.core == "edge") {
+						tmptver = h[1].split(".");
+						tmptver.forEach(function (e) {
+							uadecver.push(parseInt(e));
+						});
 					};
 					break;
 				};
 			};
-		};
+		});
 		// Browser specific tests
 		if (this.core == "chrome") {
 			//{ If Chromium, check for real versions and versions provided by userAgent
 			var aver = [], dver = [], minver = 0, maxver = 90;
 			// Available version check
-			(this._features.withAll("imageCapture")) ? (aver.push(59)) : (dver.push(59));
-			(this._features.withAll("restObject")) ? (aver.push(60)) : (dver.push(60));
-			(this._features.withAll("netInfo", "cssSupports")) ? (aver.push(61)) : (dver.push(61));
-			(this._features.withAll("netInfoDetailed", "fontVarConf")) ? (aver.push(62)) : (dver.push(62));
-			(this._features.withAll("intlPluralRules")) ? (aver.push(63)) : (dver.push(63));
-			(this._features.withAll("resizeObserver")) ? (aver.push(64)) : (dver.push(64));
-			(this._features.withAll("perfSvrTiming")) ? (aver.push(65)) : (dver.push(65));
-			(this._features.withAll("navClipboard")) ? (aver.push(66)) : (dver.push(66));
-			(this._features.withAll("bigInt")) ? (aver.push(67)) : (dver.push(67));
-			(this._features.withAll("pageLife")) ? (aver.push(68)) : (dver.push(68));
-			(this._features.withAll("webLocks", "offscreenCanvas")) ? (aver.push(69)) : (dver.push(69));
-			(this._features.withAll("noGamepadList")) ? (aver.push(70)) : (dver.push(70));
-			(this._features.withAll("intlRelaTime")) ? (aver.push(71)) : (dver.push(71));
-			(this._features.withAll("intlListFormat")) ? (aver.push(72)) : (dver.push(72));
-			(this._features.withAll("stringMatchAll")) ? (aver.push(73)) : (dver.push(73));
-			(this._features.withAll("intlLocale")) ? (aver.push(74)) : (dver.push(74));
+			(this._features.withAlld("imageCapture")) ? (aver.push(59)) : (dver.push(59));
+			(this._features.withAlld("restObject")) ? (aver.push(60)) : (dver.push(60));
+			(this._features.withAlld("netInfo", "cssSupports")) ? (aver.push(61)) : (dver.push(61));
+			(this._features.withAlld("netInfoDetailed", "fontVarConf")) ? (aver.push(62)) : (dver.push(62));
+			(this._features.withAlld("intlPluralRules")) ? (aver.push(63)) : (dver.push(63));
+			(this._features.withAlld("resizeObserver")) ? (aver.push(64)) : (dver.push(64));
+			(this._features.withAlld("perfSvrTiming")) ? (aver.push(65)) : (dver.push(65));
+			(this._features.withAlld("navClipboard")) ? (aver.push(66)) : (dver.push(66));
+			(this._features.withAlld("bigInt")) ? (aver.push(67)) : (dver.push(67));
+			(this._features.withAlld("pageLife")) ? (aver.push(68)) : (dver.push(68));
+			(this._features.withAlld("webLocks", "offscreenCanvas")) ? (aver.push(69)) : (dver.push(69));
+			(this._features.withAlld("noGamepadList")) ? (aver.push(70)) : (dver.push(70));
+			(this._features.withAlld("intlRelaTime")) ? (aver.push(71)) : (dver.push(71));
+			(this._features.withAlld("intlListFormat")) ? (aver.push(72)) : (dver.push(72));
+			(this._features.withAlld("stringMatchAll")) ? (aver.push(73)) : (dver.push(73));
+			(this._features.withAlld("intlLocale")) ? (aver.push(74)) : (dver.push(74));
 			// Chrome has 75, but undetectable
-			(this._features.withAll("easyBlobReading")) ? (aver.push(76)) : (dver.push(76));
-			(this._features.withAll("onFormData")) ? (aver.push(77)) : (dver.push(77));
-			(this._features.withAll("cssRegProp")) ? (aver.push(78)) : (dver.push(78));
-			(this._features.withAll("webxr")) ? (aver.push(79)) : (dver.push(79));
-			(this._features.withAny("optChaining", "dispMinUI")) ? (aver.push(80)) : (dver.push(80));
-			(this._features.withAll("intlDispNames")) ? (aver.push(81)) : (dver.push(81));
+			(this._features.withAlld("easyBlobReading")) ? (aver.push(76)) : (dver.push(76));
+			(this._features.withAlld("onFormData")) ? (aver.push(77)) : (dver.push(77));
+			(this._features.withAlld("cssRegProp")) ? (aver.push(78)) : (dver.push(78));
+			(this._features.withAlld("webxr")) ? (aver.push(79)) : (dver.push(79));
+			(this._features.withAnyd("optChaining", "dispMinUI")) ? (aver.push(80)) : (dver.push(80));
+			(this._features.withAlld("intlDispNames")) ? (aver.push(81)) : (dver.push(81));
 			// No 82 available
-			(this._features.withAll("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
-			// Debugging start
-			//aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
-			//dver = [71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
-			//aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 80, 81];
-			//dver = [69, 79, 83];
-			//aver = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70];
-			//dver = [69, 71, 72, 73, 74, 76, 77, 78, 79, 80, 81, 83];
+			(this._features.withAlld("shapeDetection")) ? (aver.push(83)) : (dver.push(83));
 			// Debugging end
 			console.log(aver.toString());
 			console.log(dver.toString());
@@ -551,7 +534,7 @@ var WEnv = function () {
 	// Comparing different browsers with UA and Fingerprints
 	if (this.core == "chrome") {
 		// UA match
-		if (this._features.withAll("navigator", "useragent")) {
+		if (this._features.withAlld("navigator", "useragent")) {
 			if (navigator.userAgent.indexOf("Edg") != -1) {
 				this.moddedName = "edge";
 				this.moddedFrom = "us";
@@ -564,20 +547,19 @@ var WEnv = function () {
 				this.moddedName = "brave";
 				this.moddedFrom = "foss";
 			};
-			if (navigator.userAgent.indexOf(' Firefox') != -1 || navigator.userAgent.indexOf('MSIE') != -1 || navigator.userAgent.indexOf('Trident') != -1 || navigator.userAgent.indexOf('iPhone; CPU iPhone OS') != -1 || navigator.userAgent.indexOf('Symbian/') != -1 ) {
+			if (navigator.userAgent.withAnyd(' Firefox', 'MSIE', 'Trident', 'iPhone; CPU iPhone OS', 'Symbian/')) {
 				this.tags.push("forged-core");
 			};
 			// Bulk country query
 			// Chinese browsers
 			{
 				var tmpulist = ["qh", "qihoo", "360ee", "360se", "uc", "ubrowser", "qq", "baidu", "bidu", "maxthon", "metasr", "sogou", "lbbr", "2345e", "2345b", "115b", "world", "miuib", "quark", "qiyu", "micromess", "aliapp", "weibo", "douban", "snebuy", "iqiyi", "dingtalk", "huawei"], bMatched = false, bName = "";
-				for (var pt = 0; pt < tmpulist; pt ++) {
-					if (navigator.userAgent.toLowerCase().withAll(tmpulist[pt])) {
+				tmpulist.forEach(function () {
+					if (navigator.userAgent.toLowerCase().withAlld(e)) {
 						bMatched = true;
-						bName = tmpulist[pt];
-						break;
+						bName = e;
 					};
-				};
+				});
 				switch (bName) {
 					case "qh":
 					case "qihoo":

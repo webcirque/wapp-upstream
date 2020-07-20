@@ -44,6 +44,11 @@ Array.prototype.filter = Array.prototype.indexOf || function (func) {
 	};
 	return ans;
 };
+Array.prototype.forEach = Array.prototype.forEach || function (defFunc) {
+	for (var ptc = 0; ptc < this.length; ptc ++) {
+		defFunc(this[ptc], ptc, this);
+	};
+};
 Array.prototype.indexOf = Array.prototype.indexOf || function (del) {
 	var ans = -1;
 	if (del) {
@@ -68,35 +73,32 @@ Array.prototype.lastIndexOf = Array.prototype.lastIndexOf || function (del) {
 	return ans;
 };
 // If an array has...
-Array.prototype.withCount = function () {
+Array.prototype.reversed = function () {
+	return this.slice().reverse();
+};
+Array.prototype.withCount = function (args) {
 	var act = 0;
-	for (var pt = 0; pt < arguments.length; pt ++) {
-		if (this.indexOf(arguments[pt]) != -1) {
+	for (var pt = 0; pt < args.length; pt ++) {
+		if (this.indexOf(args[pt]) != -1) {
 			act ++;
 		};
 	};
 	return act;
 };
-Array.prototype.withAny = function () {
-	var ans = false;
-	for (var pt = 0; pt < arguments.length; pt ++) {
-		if (this.indexOf(arguments[pt]) != -1) {
-			ans = true;
-		};
-		if (ans == true) {
-			continue;
-		};
-	};
-	return ans;
+Array.prototype.withAny = function (args) {
+	return (this.withCount(args) > 0);
 };
-Array.prototype.withAll = function () {
-	var act = 0;
-	for (var pt = 0; pt < arguments.length; pt ++) {
-		if (this.indexOf(arguments[pt]) != -1) {
-			act ++;
-		};
-	};
-	return (act == arguments.length);
+Array.prototype.withAll = function (args) {
+	return (this.withCount(args) == args.length);
+};
+Array.prototype.withCountd = function () {
+	return this.withCount(arguments);
+};
+Array.prototype.withAnyd = function () {
+	return this.withAny(arguments);
+};
+Array.prototype.withAlld = function () {
+	return this.withAll(arguments);
 };
 Array.prototype.matchAny = function (args) {
 	var a1 = this, a2 = args, ans = false;
@@ -118,22 +120,22 @@ try {
 	var Compare = function () {
 		this.type = function (dType, args) {
 			var count = 0;
-			for (var pt = 0; pt < args.length; pt ++) {
-				if (!(!(args[pt]))) {
-					if (args[pt].constructor == dType) {
+			Array.from(args).forEach(function (e) {
+				if (!!e) {
+					if (e.constructor == dType) {
 						count ++;
 					};
 				};
-			};
+			});
 			return count;
 		};
 		this.able = function (args) {
 			var count = 0;
-			for (var pt = 0; pt < args.length; pt ++) {
-				if (!(!(args[pt]))) {
+			Array.from(args).forEach(function (e) {
+				if (e == null || e == undefined) {
 					count ++;
 				};
-			};
+			});
 			return count;
 		};
 	};
@@ -152,7 +154,32 @@ try {
 	};
 	Compard = new Compard();
 } catch (err) {};
-
+// If a string has...
+String.prototype.withCount = function (args) {
+	var count = 0, copied = this.slice();
+	Array.from(args).forEach(function (e) {
+		if (copied.indexOf(e) != -1) {
+			count ++;
+		};
+	});
+	return count;
+};
+String.prototype.withAny = function (args) {
+	return (this.withCount(args) > 0);
+};
+String.prototype.withAll = function (args) {
+	return (this.withCount(args) == args.length);
+};
+String.prototype.withCountd = function () {
+	return this.withCount(arguments);
+};
+String.prototype.withAnyd = function () {
+	return (this.withCount(arguments) > 0);
+};
+String.prototype.withAlld = function () {
+	return (this.withCount(arguments) == arguments.length);
+};
+String.prototype.formText = function (map) {};
 /* function wAlter (text, map) {
 	let wtAr = Array.from(text);
 	let wlist = [];
