@@ -1,10 +1,22 @@
 "use strict";
 
+/*
+WEBSF.main.alter is a module for basic polyfills and patches to make all the requirements needed by WEBSF.main.wenv will be met, so it will not produce any error.
+*/
+
 // Ahead
 var walterna = [];
 if (!Array.prototype.indexOf) {
 	walterna.push("noIndexOf");
 };
+// Looping functions made easy
+try {
+	Function.prototype.repeat = function (times) {
+		for (var c = 0; c < times; c ++) {
+			this();
+		};
+	};
+} catch (err) {};
 // If a number has...
 Number.prototype.inside = function (maxRange) {
 	return (this % maxRange + maxRange) % maxRange;
@@ -20,14 +32,12 @@ Number.prototype.within = function (min, max) {
 // Primitive compatibility layer for array
 Array.from = Array.from || function (target) {
 	var ans = [];
-	if (target.length) {
-		if (target.length >= 0) {
-			for (var pt = 0; pt < target.length; pt ++) {
-				ans.push(target[pt]);
-			};
-		} else {
-			throw Error("Illegal length");
+	if (target.length >= 0) {
+		for (var pt = 0; pt < target.length; pt ++) {
+			ans.push(target[pt]);
 		};
+	} else {
+		throw Error("Illegal length");
 	};
 	return ans;
 };
@@ -67,6 +77,7 @@ Array.prototype.lastIndexOf = Array.prototype.lastIndexOf || function (del) {
 		for (var pt = 0; pt < this.length; pt ++) {
 			if (this[pt] == del) {
 				ans = pt;
+				break;
 			};
 		};
 	};
@@ -154,6 +165,7 @@ try {
 	};
 	Compard = new Compard();
 } catch (err) {};
+
 // If a string has...
 String.prototype.withCount = function (args) {
 	var count = 0, copied = this.slice();
@@ -179,7 +191,43 @@ String.prototype.withAnyd = function () {
 String.prototype.withAlld = function () {
 	return (this.withCount(arguments) == arguments.length);
 };
+try {
+	String.prototype.parseMap = function () {
+		var upThis = this;
+		var decURI = arguments[1];
+		if (decURI == undefined) {
+			decURI = true;
+		};
+		var startChar = arguments[2] || "?";
+		var breakChar = arguments[3] || "&";
+		var assignChar = arguments[4] || "=";
+		var query = upThis.replace(startChar, "");
+		var valMap = new Map();
+		if (query.length) {
+			query = query.split(breakChar);
+			query.forEach(function (e, i, a) {
+				var key = "", value = "", valueYet = false;
+				Array.from(e).forEach(function (e2) {
+					if (!valueYet) {
+						if (e2 == assignChar) {
+							valueYet = true;
+						} else {
+							key += e2;
+						};
+					} else {
+						value += e2;
+					};
+				});
+				key = decodeURIComponent(key);
+				value = decodeURIComponent(value);
+				valMap.set(key, value);
+			});
+		};
+		return valMap;
+	};
+} catch (err) {};
 String.prototype.formText = function (map) {};
+
 /* function wAlter (text, map) {
 	let wtAr = Array.from(text);
 	let wlist = [];
