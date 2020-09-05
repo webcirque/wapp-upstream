@@ -48,6 +48,10 @@ var checkIt = function () {
 			};
 			case wenv.tags.withAnyd("forged-ver") : {
 				warnwr("Tried to forge another version.\nReal version: " + wenv.version.toString() + "\nForged version: " + wenv.uaversion.toString());
+				top.postMessage({"type": "loadstage", "from": "check", "loadstage": "ok"}, "*");
+				setTimeout(function () {
+					location.href = "main.htm";
+				}, 15000);
 				break;
 			};
 			default : {
